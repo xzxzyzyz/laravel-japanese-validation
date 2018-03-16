@@ -20,6 +20,11 @@ composer require xzxzyzyz/laravel-japanese-validation
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\Hiragana;
 
 $request->validate(['name' => 'ひらがなのもじれつ'], ['name' => new Hiragana]); // true
+
+
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules\HiraganaAndSpace;
+
+$request->validate(['name' => 'ひらがなの もじれつ'], ['name' => HiraganaAndSpace Hiragana]); // true
 ```
 
 ### カタカナ
@@ -28,6 +33,10 @@ $request->validate(['name' => 'ひらがなのもじれつ'], ['name' => new Hir
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\Katakana;
 
 $request->validate(['kana' => 'カタカナノモジレツ'], ['kana' => new Katakana]); // true
+
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules\KatakanaAndSpace;
+
+$request->validate(['kana' => 'カタカナノ モジレツ'], ['kana' => new KatakanaAndSpace]); // true
 ```
 
 ### 電話番号
