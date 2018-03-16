@@ -1,6 +1,6 @@
 <?php
 
-namespace Xzxzyzyz\JapaneseValidation\Rules;
+namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 

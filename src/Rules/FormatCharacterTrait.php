@@ -1,6 +1,6 @@
 <?php
 
-namespace Xzxzyzyz\JapaneseValidation\Rules;
+namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
 trait FormatCharacterTrait
 {
@@ -14,7 +14,7 @@ trait FormatCharacterTrait
         // ハイフンを半角へ変換
         $search = array_keys($table);
         $replace = array_values($table);
-        
+
         return str_replace($search, $replace, $value);
     }
 }

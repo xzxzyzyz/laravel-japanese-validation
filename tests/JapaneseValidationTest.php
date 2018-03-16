@@ -1,6 +1,6 @@
 <?php
 
-use Xzxzyzyz\JapaneseValidation\Rules;
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class JapaneseValidationTest extends BaseTestCase

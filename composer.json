@@ -1,9 +1,8 @@
 {
   "name": "xzxzyzyz/laravel-japanese-validation",
-  "description": "Japanese Validation For Laravel 5",
+  "description": "Japanese Validation For Laravel",
   "keywords": [
     "laravel",
-    "framework",
     "validation",
     "都道府県",
     "郵便番号",
@@ -22,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Xzxzyzyz\\JapaneseValidation\\": "src/"
+      "Xzxzyzyz\\Laravel\\JapaneseValidation\\": "src/"
     }
   },
   "require-dev": {
