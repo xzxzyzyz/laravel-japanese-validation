@@ -24,7 +24,7 @@ $request->validate(['name' => 'ひらがなのもじれつ'], ['name' => new Hir
 
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\HiraganaAndSpace;
 
-$request->validate(['name' => 'ひらがなの もじれつ'], ['name' => HiraganaAndSpace Hiragana]); // true
+$request->validate(['name' => 'ひらがなの もじれつ'], ['name' => HiraganaAndSpaceHiragana]); // true
 ```
 
 ### カタカナ
