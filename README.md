@@ -51,10 +51,10 @@ $request->validate(['phone' => '0000000000'], ['phone' => new Phone]); // true
 ### 郵便番号
 
 ```php
-use Xzxzyzyz\Laravel\JapaneseValidation\Rules\PotalCode;
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules\PostalCode;
 
-$request->validate(['zip' => '000-0000'], ['zip' => new PotalCode]); // true
-$request->validate(['zip' => '0000000'], ['zip' => new PotalCode]); // true
+$request->validate(['zip' => '000-0000'], ['zip' => new PostalCode]); // true
+$request->validate(['zip' => '0000000'], ['zip' => new PostalCode]); // true
 ```
 
 ### 都道府県
