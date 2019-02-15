@@ -62,4 +62,37 @@ class JapaneseValidationTest extends BaseTestCase
         $this->assertEquals(true, $rule->passes('dummy', '北海道'));
         $this->assertEquals(false, $rule->passes('dummy', 'Hokkaido'));
     }
+
+    public function testAlpha()
+    {
+        $rule = new Rules\Alpha;
+        $this->assertEquals(true, $rule->passes('dummy', 'abc'));
+        $this->assertEquals(true, $rule->passes('dummy', 'ABC'));
+        $this->assertEquals(false, $rule->passes('dummy', 'ａｂｃ'));
+        $this->assertEquals(false, $rule->passes('dummy', 'ＡＢＣ'));
+    }
+
+    public function testAlphaDash()
+    {
+        $rule = new Rules\AlphaDash;
+        $this->assertEquals(true, $rule->passes('dummy', 'abc'));
+        $this->assertEquals(true, $rule->passes('dummy', 'ABC'));
+        $this->assertEquals(true, $rule->passes('dummy', '-'));
+        $this->assertEquals(true, $rule->passes('dummy', '_'));
+        $this->assertEquals(false, $rule->passes('dummy', 'ａｂｃ'));
+        $this->assertEquals(false, $rule->passes('dummy', 'ＡＢＣ'));
+        $this->assertEquals(false, $rule->passes('dummy', 'ー'));
+        $this->assertEquals(false, $rule->passes('dummy', '−'));
+    }
+
+    public function testAlphaNumber()
+    {
+        $rule = new Rules\AlphaNumber;
+        $this->assertEquals(true, $rule->passes('dummy', 'abc'));
+        $this->assertEquals(true, $rule->passes('dummy', 'ABC'));
+        $this->assertEquals(true, $rule->passes('dummy', '123'));
+        $this->assertEquals(false, $rule->passes('dummy', 'ａｂｃ'));
+        $this->assertEquals(false, $rule->passes('dummy', 'ＡＢＣ'));
+        $this->assertEquals(false, $rule->passes('dummy', '１２３'));
+    }
 }
