@@ -1,6 +1,9 @@
 # Laravel Japanese Validation
 
 [![Build Status](https://travis-ci.com/xzxzyzyz/laravel-japanese-validation.svg?branch=master)](https://travis-ci.com/xzxzyzyz/laravel-japanese-validation)
+![Release](https://img.shields.io/github/release/xzxzyzyz/laravel-japanese-validation.svg?style=flat)
+[![Packagist](https://img.shields.io/packagist/dt/xzxzyzyz/laravel-japanese-validation.svg)](https://packagist.org/packages/xzxzyzyz/laravel-japanese-validation)
+![GitHub license](https://img.shields.io/github/license/xzxzyzyz/laravel-japanese-validation.svg?style=flat)
 
 Laravelで利用する日本のバリデーションルール
 
