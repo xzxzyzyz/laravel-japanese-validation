@@ -1,6 +1,5 @@
 # Laravel Japanese Validation
 
-[![CircleCI](https://circleci.com/gh/xzxzyzyz/laravel-japanese-validation/tree/master.svg?style=svg)](https://circleci.com/gh/xzxzyzyz/laravel-japanese-validation/tree/master)
 [![Build Status](https://travis-ci.com/xzxzyzyz/laravel-japanese-validation.svg?branch=master)](https://travis-ci.com/xzxzyzyz/laravel-japanese-validation)
 
 Laravelで利用する日本のバリデーションルール
