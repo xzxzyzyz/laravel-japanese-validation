@@ -22,12 +22,12 @@ composer require xzxzyzyz/laravel-japanese-validation
 ```php
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\Hiragana;
 
-$request->validate(['name' => 'ひらがなのもじれつ'], ['name' => new Hiragana]); // true
+Validator::make(['name' => 'ひらがなのもじれつ'], ['name' => new Hiragana])->passes(); // true
 
 
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\HiraganaAndSpace;
 
-$request->validate(['name' => 'ひらがなの もじれつ'], ['name' => HiraganaAndSpaceHiragana]); // true
+Validator::make(['name' => 'ひらがなの もじれつ'], ['name' => HiraganaAndSpaceHiragana])->passes(); // true
 ```
 
 ### カタカナ
@@ -35,11 +35,30 @@ $request->validate(['name' => 'ひらがなの もじれつ'], ['name' => Hiraga
 ```php
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\Katakana;
 
-$request->validate(['kana' => 'カタカナノモジレツ'], ['kana' => new Katakana]); // true
+Validator::make(['kana' => 'カタカナノモジレツ'], ['kana' => new Katakana])->passes(); // true
 
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\KatakanaAndSpace;
 
-$request->validate(['kana' => 'カタカナノ モジレツ'], ['kana' => new KatakanaAndSpace]); // true
+Validator::make(['kana' => 'カタカナノ モジレツ'], ['kana' => new KatakanaAndSpace])->passes(); // true
+```
+
+### 半角英数字
+
+```php
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules\Alpha;
+
+Validator::make(['alpha' => 'ABC'], ['alpha' => new Alpha])->passes(); // true
+Validator::make(['alpha' => 'ＡＢＣ'], ['alpha' => new Alpha])->passes(); // false
+
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules\AlphaDash;
+
+Validator::make(['alpha_dash' => 'ABC-_'], ['alpha_dash' => new AlphaDash])->passes(); // true
+Validator::make(['alpha_dash' => 'ＡＢＣー'], ['alpha_dash' => new AlphaDash])->passes(); // false
+
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules\AlphaNumber;
+
+Validator::make(['alpha_num' => 'ABC123'], ['alpha_num' => new AlphaNumber])->passes(); // true
+Validator::make(['alpha_num' => 'ＡＢＣ１２３'], ['alpha_num' => new AlphaNumber])->passes(); // false
 ```
 
 ### 電話番号
@@ -47,8 +66,8 @@ $request->validate(['kana' => 'カタカナノ モジレツ'], ['kana' => new Ka
 ```php
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\Phone;
 
-$request->validate(['phone' => '00-0000-0000'], ['phone' => new Phone]); // true
-$request->validate(['phone' => '0000000000'], ['phone' => new Phone]); // true
+Validator::make(['phone' => '00-0000-0000'], ['phone' => new Phone])->passes(); // true
+Validator::make(['phone' => '0000000000'], ['phone' => new Phone])->passes(); // true
 ```
 
 ### 郵便番号
@@ -56,8 +75,8 @@ $request->validate(['phone' => '0000000000'], ['phone' => new Phone]); // true
 ```php
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\PostalCode;
 
-$request->validate(['zip' => '000-0000'], ['zip' => new PostalCode]); // true
-$request->validate(['zip' => '0000000'], ['zip' => new PostalCode]); // true
+Validator::make(['zip' => '000-0000'], ['zip' => new PostalCode])->passes(); // true
+Validator::make(['zip' => '0000000'], ['zip' => new PostalCode])->passes(); // true
 ```
 
 ### 都道府県
@@ -65,5 +84,5 @@ $request->validate(['zip' => '0000000'], ['zip' => new PostalCode]); // true
 ```php
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\Pref;
 
-$request->validate(['pref' => '東京'], ['pref' => new Pref]); // true
+Validator::make(['pref' => '東京'], ['pref' => new Pref])->passes(); // true
 ```
