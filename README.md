@@ -27,7 +27,7 @@ Validator::make(['name' => 'ひらがなのもじれつ'], ['name' => new Hiraga
 
 use Xzxzyzyz\Laravel\JapaneseValidation\Rules\HiraganaAndSpace;
 
-Validator::make(['name' => 'ひらがなの もじれつ'], ['name' => HiraganaAndSpaceHiragana])->passes(); // true
+Validator::make(['name' => 'ひらがなの もじれつ'], ['name' => new HiraganaAndSpace])->passes(); // true
 ```
 
 ### カタカナ
