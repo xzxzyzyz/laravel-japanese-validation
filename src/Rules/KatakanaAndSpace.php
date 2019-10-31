@@ -15,14 +15,14 @@ class KatakanaAndSpace implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (preg_match("/^[ 　]+$/u", $value)) {
+        if (preg_match('/^[ 　]+$/u', $value)) {
             return false;
         }
 
         //  「半角カタカナ」を「全角カタカナ」に変換
         $text = mb_convert_kana($value, 'K', 'UTF-8');
 
-        return preg_match("/^[ァ-ヶー 　]+$/u", $text);
+        return preg_match('/^[ァ-ヶー 　]+$/u', $text);
     }
 
     /**

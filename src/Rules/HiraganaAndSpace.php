@@ -15,11 +15,11 @@ class HiraganaAndSpace implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (preg_match("/^[ 　]+$/u", $value)) {
+        if (preg_match('/^[ 　]+$/u', $value)) {
             return false;
         }
 
-        return preg_match("/^[ぁ-ん 　]+$/u", $value);
+        return preg_match('/^[ぁ-んー 　]+$/u', $value);
     }
 
     /**

@@ -33,7 +33,7 @@ class Phone implements Rule
         // ハイフンを半角へ変換
         $text = $this->formatHyphen($text);
 
-        return preg_match("/^[0-9]{2,4}-?[0-9]{2,4}-?[0-9]{3,4}$/", $text);
+        return preg_match("/^[\d]{2,4}-?[\d]{2,4}-?[\d]{3,4}$/", $text);
     }
 
     /**

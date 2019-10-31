@@ -9,6 +9,7 @@ class JapaneseValidationTest extends BaseTestCase
     {
         $rule = new Rules\Hiragana;
         $this->assertEquals(true, $rule->passes('dummy', 'あいうえお'));
+        $this->assertEquals(true, $rule->passes('dummy', 'あいうえおー'));
         $this->assertEquals(false, $rule->passes('dummy', 'あいう えお'));
         $this->assertEquals(false, $rule->passes('dummy', 'アイウエオ'));
     }
@@ -17,6 +18,7 @@ class JapaneseValidationTest extends BaseTestCase
     {
         $rule = new Rules\HiraganaAndSpace();
         $this->assertEquals(true, $rule->passes('dummy', 'あいう えお'));
+        $this->assertEquals(true, $rule->passes('dummy', 'あいう えおー'));
         $this->assertEquals(true, $rule->passes('dummy', 'あいう　えお'));
         $this->assertEquals(false, $rule->passes('dummy', ' 　'));
     }
@@ -25,6 +27,7 @@ class JapaneseValidationTest extends BaseTestCase
     {
         $rule = new Rules\Katakana;
         $this->assertEquals(true, $rule->passes('dummy', 'アイウエオ'));
+        $this->assertEquals(true, $rule->passes('dummy', 'アイウエオー'));
         $this->assertEquals(true, $rule->passes('dummy', 'ｱｲｳｴｵ'));
         $this->assertEquals(false, $rule->passes('dummy', 'アイ ウエオ'));
         $this->assertEquals(false, $rule->passes('dummy', 'あいうえお'));
@@ -34,6 +37,7 @@ class JapaneseValidationTest extends BaseTestCase
     {
         $rule = new Rules\KatakanaAndSpace;
         $this->assertEquals(true, $rule->passes('dummy', 'アイウ エオ'));
+        $this->assertEquals(true, $rule->passes('dummy', 'アイウ エオー'));
         $this->assertEquals(true, $rule->passes('dummy', 'ｱｲｳ　ｴｵ'));
         $this->assertEquals(false, $rule->passes('dummy', ' 　'));
     }

@@ -15,7 +15,7 @@ class Hiragana implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match("/^[ぁ-ん]+$/u", $value);
+        return preg_match('/^[ぁ-んー]+$/u', $value);
     }
 
     /**
