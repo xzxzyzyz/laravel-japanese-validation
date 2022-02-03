@@ -7,35 +7,55 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
-        laravel: [6.*, 7.*, 8.*]
-        dependency-version: [prefer-lowest, prefer-stable]
+        php: [ 7.4, 8.0, 8.1 ]
+        laravel: [ ^8.79, ^9.0 ]
+        dependency-version: [ stable, lowest ]
+        exclude:
+          - php: 7.4
+            laravel: ^9.0
+          - laravel: ^9.0
+            dependency-version: lowest
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
     steps:
-      -   name: Checkout code
-          uses: actions/checkout@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      -   name: Cache dependencies
-          uses: actions/cache@v1
-          with:
-            path: ~/.composer/cache/files
-            key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
+          tools: composer:v2
 
-      -   name: Setup PHP
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: ${{ matrix.php }}
-            extensions: curl, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, iconv
-            coverage: none
+      - name: Register composer cache directory
+        id: composer-cache-files-dir
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      -   name: Install dependencies
-          run: |
-            composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-            composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            vendor
+            ${{ steps.composer-cache-files-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
 
-      -   name: Execute tests
-          run: vendor/bin/phpunit
+      - name: Set minimum stability
+        run: composer config minimum-stability ${{ matrix.minimum-stability }}
+
+      - name: Install dependencies
+        env:
+          COMPOSER_DISCARD_CHANGES: true
+        run: composer require --no-suggest --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}"
+
+      - name: Set dependency version
+        env:
+          COMPOSER_DISCARD_CHANGES: true
+        run: composer update --no-suggest --no-progress --no-interaction --no-suggest --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
+
+      - name: Execute tests
+        run: vendor/bin/phpunit
