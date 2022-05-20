@@ -68,6 +68,15 @@ Validator::make(['phone' => '00-0000-0000'], ['phone' => new Phone])->passes(); 
 Validator::make(['phone' => '0000000000'], ['phone' => new Phone])->passes(); // true
 ```
 
+### 携帯電話番号
+
+```php
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules\MobilePhone;
+
+Validator::make(['phone' => '090-1111-2222'], ['phone' => new MobilePhone])->passes(); // true
+Validator::make(['phone' => '09011112222'], ['phone' => new MobilePhone])->passes(); // true
+```
+
 ### 郵便番号
 
 ```php
