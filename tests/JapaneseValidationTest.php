@@ -99,4 +99,13 @@ class JapaneseValidationTest extends BaseTestCase
         $this->assertEquals(false, $rule->passes('dummy', 'ＡＢＣ'));
         $this->assertEquals(false, $rule->passes('dummy', '１２３'));
     }
+
+    public function testMobilePhone()
+    {
+        $rule = new Rules\MobilePhone;
+        $this->assertEquals(true, $rule->passes('dummy', '09011112222'));
+        $this->assertEquals(true, $rule->passes('dummy', '080-1111-2222'));
+        $this->assertEquals(true, $rule->passes('dummy', '０７０１１１１２２２２'));
+        $this->assertEquals(true, $rule->passes('dummy', '０７０ー１１１１ー２２２２'));
+    }
 }
