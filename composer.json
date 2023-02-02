@@ -1,32 +1,32 @@
 {
-  "name": "xzxzyzyz/laravel-japanese-validation",
-  "description": "Japanese Validation For Laravel",
-  "keywords": [
-    "laravel",
-    "validation",
-    "都道府県",
-    "郵便番号",
-    "電話番号"
-  ],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Xzxzyzyz",
-      "email": "xzxzyzyz@gmail.com"
-    }
-  ],
-  "require": {
-    "php": "^7.4|^8.0",
-    "illuminate/contracts": "^8.0|^9.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.5"
-  },
-  "autoload": {
-    "psr-4": {
-      "Xzxzyzyz\\Laravel\\JapaneseValidation\\": "src/"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "name": "xzxzyzyz/laravel-japanese-validation",
+    "description": "Japanese Validation For Laravel",
+    "keywords": [
+        "laravel",
+        "validation",
+        "都道府県",
+        "郵便番号",
+        "電話番号"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Xzxzyzyz",
+            "email": "xzxzyzyz@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/contracts": "^8.0|^9.0|^10.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Xzxzyzyz\\Laravel\\JapaneseValidation\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
