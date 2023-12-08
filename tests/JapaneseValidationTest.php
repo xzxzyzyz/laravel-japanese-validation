@@ -51,6 +51,15 @@ class JapaneseValidationTest extends BaseTestCase
         $this->assertEquals(true, $rule->passes('dummy', '０００ー１１１１ー２２２２'));
     }
 
+    public function testFax()
+    {
+        $rule = new Rules\Fax();
+        $this->assertEquals(true, $rule->passes('dummy', '00011112222'));
+        $this->assertEquals(true, $rule->passes('dummy', '000-1111-2222'));
+        $this->assertEquals(true, $rule->passes('dummy', '０００１１１１２２２２'));
+        $this->assertEquals(true, $rule->passes('dummy', '０００ー１１１１ー２２２２'));
+    }
+
     public function testPostalCode()
     {
         $rule = new Rules\PostalCode;
