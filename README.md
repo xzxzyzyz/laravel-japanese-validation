@@ -68,6 +68,15 @@ Validator::make(['phone' => '00-0000-0000'], ['phone' => new Phone])->passes(); 
 Validator::make(['phone' => '0000000000'], ['phone' => new Phone])->passes(); // true
 ```
 
+### FAX番号
+
+```php
+use Xzxzyzyz\Laravel\JapaneseValidation\Rules\Fax;
+
+Validator::make(['fax' => '00-0000-0000'], ['fax' => new Fax])->passes(); // true
+Validator::make(['fax' => '0000000000'], ['fax' => new Fax])->passes(); // true
+```
+
 ### 携帯電話番号
 
 ```php
