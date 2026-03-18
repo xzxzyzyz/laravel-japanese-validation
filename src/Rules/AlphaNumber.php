@@ -2,29 +2,15 @@
 
 namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class AlphaNumber implements Rule
+class AlphaNumber implements ValidationRule
 {
-    /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
-     */
-    public function passes($attribute, $value)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        return preg_match('/^[A-Za-z\d]+$/', $value);
-    }
-
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        return trans('validation.alpha_num');
+        if (! preg_match('/^[A-Za-z\d]+$/', $value)) {
+            $fail(trans('validation.alpha_num'));
+        }
     }
 }

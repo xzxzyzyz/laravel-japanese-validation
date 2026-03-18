@@ -2,18 +2,15 @@
 
 namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class Pref implements Rule
+class Pref implements ValidationRule
 {
     /**
      * 都道府県ルール
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $prefectures = [
             '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
@@ -24,22 +21,14 @@ class Pref implements Rule
             '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
         ];
 
-        return in_array($value, $prefectures);
-    }
+        if (! in_array($value, $prefectures)) {
+            $message = trans('validation.pref');
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        $message = trans('validation.pref');
+            if ($message == 'validation.pref') {
+                $message = '存在しない都道府県です。';
+            }
 
-        if ($message == 'validation.pref') {
-            $message = '存在しない都道府県です。';
+            $fail($message);
         }
-
-        return $message;
     }
 }

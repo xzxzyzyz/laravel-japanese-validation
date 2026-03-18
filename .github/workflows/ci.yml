@@ -10,20 +10,15 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.1, 8.2, 8.3]
-        laravel: [^12.0, ^9.0, ^10.0, ^11.0]
+        php: [8.2, 8.3, 8.4]
+        laravel: [^10.0, ^11.0, ^12.0, ^13.0]
         dependency-version: [stable, lowest]
-        exclude:
-          - laravel: ^11.0
-            php: 8.1
-          - laravel: ^12.0
-            php: 8.1
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -38,12 +33,12 @@ jobs:
       - name: Install dependencies
         env:
           COMPOSER_DISCARD_CHANGES: true
-        run: composer require --no-suggest --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}"
+        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}"
 
       - name: Set dependency version
         env:
           COMPOSER_DISCARD_CHANGES: true
-        run: composer update --no-suggest --no-progress --no-interaction --no-suggest --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
+        run: composer update --no-progress --no-interaction --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
 
       - name: Execute tests
         run: vendor/bin/phpunit

@@ -2,30 +2,17 @@
 
 namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class MobilePhone implements Rule
+class MobilePhone implements ValidationRule
 {
     use FormatCharacterTrait;
 
     /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * 携帯電話番号バリデーション
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // 全角数字を半角へ変換
         $text = mb_convert_kana($value, 'asK', 'UTF-8');
@@ -33,22 +20,14 @@ class MobilePhone implements Rule
         // ハイフンを半角へ変換
         $text = $this->formatHyphen($text);
 
-        return preg_match("/^0[789]0-?[0-9]{4}-?[0-9]{4}$/", $text);
-    }
+        if (! preg_match("/^0[789]0-?[0-9]{4}-?[0-9]{4}$/", $text)) {
+            $message = trans('validation.mobile_phone');
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        $message = trans('validation.mobile_phone');
+            if ($message == 'validation.mobile_phone') {
+                $message = '電話番号を確認してください。';
+            }
 
-        if ($message == 'validation.mobile_phone') {
-            $message = '電話番号を確認してください。';
+            $fail($message);
         }
-
-        return $message;
     }
 }
