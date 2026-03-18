@@ -15,9 +15,14 @@ class JapaneseValidationTest extends BaseTestCase
     private function passes(object $rule, string $value): bool
     {
         $failed = false;
-        $rule->validate('dummy', $value, function () use (&$failed) {
+
+        try {
+            $rule->validate('dummy', $value, function () use (&$failed) {
+                $failed = true;
+            });
+        } catch (\Throwable) {
             $failed = true;
-        });
+        }
 
         return ! $failed;
     }
