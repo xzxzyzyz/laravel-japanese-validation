@@ -2,30 +2,17 @@
 
 namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class Phone implements Rule
+class Phone implements ValidationRule
 {
     use FormatCharacterTrait;
 
     /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * 電話番号バリデーション
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // 全角数字を半角へ変換
         $text = mb_convert_kana($value, 'asK', 'UTF-8');
@@ -33,15 +20,12 @@ class Phone implements Rule
         // ハイフンを半角へ変換
         $text = $this->formatHyphen($text);
 
-        return preg_match("/^[\d]{2,4}-?[\d]{2,4}-?[\d]{3,4}$/", $text);
+        if (! preg_match("/^[\d]{2,4}-?[\d]{2,4}-?[\d]{3,4}$/", $text)) {
+            $fail($this->message());
+        }
     }
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
+    protected function message(): string
     {
         $message = trans('validation.phone');
 

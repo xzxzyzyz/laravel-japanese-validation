@@ -2,16 +2,9 @@
 
 namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
-
-class Fax extends Phone implements Rule
+class Fax extends Phone
 {
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
+    protected function message(): string
     {
         $message = trans('validation.fax');
 

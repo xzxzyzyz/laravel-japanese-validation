@@ -2,38 +2,24 @@
 
 namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class Katakana implements Rule
+class Katakana implements ValidationRule
 {
-    /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
-     */
-    public function passes($attribute, $value)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         //  「半角カタカナ」を「全角カタカナ」に変換
         $text = mb_convert_kana($value, 'K', 'UTF-8');
 
-        return preg_match('/^[ァ-ヶー]+$/u', $text);
-    }
+        if (! preg_match('/^[ァ-ヶー]+$/u', $text)) {
+            $message = trans('validation.katakana');
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        $message = trans('validation.katakana');
+            if ($message == 'validation.katakana') {
+                $message = ':attributeはカタカナで入力してください。';
+            }
 
-        if ($message == 'validation.katakana') {
-            $message = ':attributeはカタカナで入力してください。';
+            $fail($message);
         }
-
-        return $message;
     }
 }

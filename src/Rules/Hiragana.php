@@ -2,35 +2,21 @@
 
 namespace Xzxzyzyz\Laravel\JapaneseValidation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class Hiragana implements Rule
+class Hiragana implements ValidationRule
 {
-    /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
-     */
-    public function passes($attribute, $value)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        return preg_match('/^[ぁ-んー]+$/u', $value);
-    }
+        if (! preg_match('/^[ぁ-んー]+$/u', $value)) {
+            $message = trans('validation.hiragana');
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        $message = trans('validation.hiragana');
+            if ($message == 'validation.hiragana') {
+                $message = ':attributeはひらがなで入力してください。';
+            }
 
-        if ($message == 'validation.hiragana') {
-            $message = ':attributeはひらがなで入力してください。';
+            $fail($message);
         }
-
-        return $message;
     }
 }
